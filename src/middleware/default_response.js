@@ -1,9 +1,9 @@
 // Default response for any other request.
-function default_route(req, res) {
+function default_response(req, res) {
     res.status(404).send('404 NOT FOUND');
     res.type("text/plain");
 }
 
 module.exports = {
-    default_route: default_route
+    default_response: default_response
 }

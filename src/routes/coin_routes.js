@@ -1,77 +1,40 @@
 // Route (endpoint) definitions go in this directory
 
+// Define express
+const express = require('express');
+
+// Define router object that is an instance used extensively for express.
+const router = express.Router();
+
+// Import middleware to use for the routes.
+const flip_middleware = require('../middleware/flip_middleware');
+
 // Define check endpoint
-function status(req, res) {
-    // Respond with status 200.
-    res.statusCode = 200; // Can use res.status(200).end('OK');
-    // Respond with status message "OK"
-    res.statusMessage = 'OK';
-    res.writeHead(res.statusCode, { 'Content-Type': 'text/plain' });
-    res.end(res.statusCode + ' ' + res.statusMessage);
-}
+router.get('/', flip_middleware.status);
 
-// Define function for multiple coin flips
-function multiple_coins(req, res, next) {
-    const flips = coinFlips(req.body.number);
-    const count = countFlips(flips);
-    res.status(200).json({ "raw": flips, "summary": count });
-}
+// Define router for multiple coin flips.
+router.post('/flip/coins/', flip_middleware.multiple_coins);
 
 
-// Define response for coinFlip.
-function coin_flip(req, res) {
-    let flip = coinFlip();
-    res.status(200).json({ "flip": flip });
-}
+// Define router for coinFlip.
+router.get('/flip/', flip_middleware.coin_flip);
 
 // Define response for coinFlips with given number.
-function number_coin_flip(req, res) {
-    let raw = coinFlips(req.params.number);
-    let summary = countFlips(raw);
-    res.status(200).json({ "raw": raw, "summary": summary });
-}
+router.get('/flips/:number', flip_middleware.number_coin_flip);
 
 
 // Define response for call.
-function flip_call(req, res, next) {
-    const game = flipACoin(req.body.guess);
-    res.status(200).json(game);
-}
-
+router.post('/flip/call/', flip_middleware.flip_call);
 
 // Define response for heads call.
-function head_call(req, res) {
-    let heads = flipACoin('heads');
-    let call = heads.call;
-    let flip = heads.flip;
-    let result = heads.result;
-    res.status(200).json({ "call": call, "flip": flip, "result": result });
-}
+router.get('/flip/call/heads', flip_middleware.head_call);
 
 
 // Define response for tails call.
-function tail_call(req, res) {
-    let tails = flipACoin('tails');
-    let call = tails.call;
-    let flip = tails.flip;
-    let result = tails.result;
-    res.status(200).json({ "call": call, "flip": flip, "result": result });
-}
-
+router.get('/flip/call/tails', flip_middleware.tail_call);
 
 // Define response for Guessing heads or tails.
-function guess_flip(req, res, next) {
-    const game = flipACoin(req.params.guess);
-    res.status(200).json(game);
-}
+router.get('/flip/call/:guess(heads|tails)/', flip_middleware.guess_flip);
 
-module.exports = {
-    status: status,
-    multiple_coins: multiple_coins,
-    coin_flip: coin_flip,
-    number_coin_flip: number_coin_flip,
-    flip_call: flip_call,
-    head_call: head_call,
-    tail_call: tail_call,
-    guess_flip: guess_flip
-}
+
+module.exports = coin_router;

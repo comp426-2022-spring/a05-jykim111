@@ -3,24 +3,28 @@
  * These functions will be used.
  */
 
-const { all } = require("express/lib/application");
+// Define express
+const express = require('express');
+
+// Define router object that is an instance used extensively for express.
+const router = express.Router();
+
+// Import database
+const database = require('../services/database');
 
 // endpoint for /app/log/access that returns all records in "accesslog" table in "log.db"
-function all_records(req, res) {
+router.get('/log/access', (req, res) => {
     try {
         const statement = database.prepare('SELECT * FROM accesslog').all();
         res.status(200).json(statement);
     } catch (e) {
         console.error(e);
     }
-}
+})
 
 // endpoint for /app/error if there is an error.
-function debug_error(req, res) {
+router.get('/error', (req, res) => {
     throw new Error('Error test successful.');
-}
+})
 
-module.exports = {
-    all_records: all_records,
-    debug_error: debug_error
-}
+module.exports = debug_router;

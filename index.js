@@ -1,143 +1,20 @@
-// Place your server entry point code here
-/** Coin flip functions 
- * This module will emulate a coin flip given various conditions as parameters as defined below
- */
-
-/** Simple coin flip
- * 
- * Write a function that accepts no parameters but returns either heads or tails at random.
- * 
- * @param {*}
- * @returns {string} 
- * 
- * example: coinFlip()
- * returns: heads
- * 
- */
-
-function coinFlip() {
-    let result;
-    let flip = Math.random();
-
-    if (flip < 0.5) {
-        result = "heads";
-    } else {
-        result = "tails";
-    }
-
-    return result;
-}
-
-/** Multiple coin flips
- * 
- * Write a function that accepts one parameter (number of flips) and returns an array of 
- * resulting "heads" or "tails".
- * 
- * @param {number} flips 
- * @returns {string[]} results
- * 
- * example: coinFlips(10)
- * returns:
- *  [
-      'heads', 'heads',
-      'heads', 'tails',
-      'heads', 'tails',
-      'tails', 'heads',
-      'tails', 'heads'
-    ]
- */
-
-function coinFlips(flips) {
-    let coinArray = [];
-
-    for (let i = 0; i < flips; i++) {
-        coinArray.push(coinFlip());
-    }
-
-    return coinArray;
-}
-
-/** Count multiple flips
- * 
- * Write a function that accepts an array consisting of "heads" or "tails" 
- * (e.g. the results of your `coinFlips()` function) and counts each, returning 
- * an object containing the number of each.
- * 
- * example: conutFlips(['heads', 'heads','heads', 'tails','heads', 'tails','tails', 'heads','tails', 'heads'])
- * { tails: 5, heads: 5 }
- * 
- * @param {string[]} array 
- * @returns {{ heads: number, tails: number }}
- */
-
-function countFlips(array) {
-    let tailsCount = 0;
-    let headsCount = 0;
-
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] == 'heads') {
-            headsCount++;
-        } else {
-            tailsCount++;
-        }
-    }
-
-    return {
-        'tails': tailsCount,
-        'heads': headsCount
-    };
-
-}
-
-/** Flip a coin!
- * 
- * Write a function that accepts one input parameter: a string either "heads" or "tails", flips a coin, and then records "win" or "lose". 
- * 
- * @param {string} call 
- * @returns {object} with keys that are the input param (heads or tails), a flip (heads or tails), and the result (win or lose). See below example.
- * 
- * example: flipACoin('tails')
- * returns: { call: 'tails', flip: 'heads', result: 'lose' }
- */
-
-function flipACoin(call) {
-    let result;
-    let flip = coinFlip();
-    if (call == flip) {
-        result = 'win';
-    } else {
-        result = 'lose';
-    }
-
-    let game = {
-        'call': call,
-        'flip': flip,
-        'result': result
-    };
-
-    return game;
-
-}
-
-/* START OF a04 */
-
 // Require express
 const express = require('express')
 
 // Define express using variable "app"
 const app = express();
 
-// Import coin_routes into index.js
-const coin_route = require('./src/routes/coin_routes.js');
+// Define coin_routes
+const coin_router = require('./src/routes/coin_routes');
 
-// Import default_route into index.js
-const default_route = require('./src/routes/default_route.js');
-
-// Import debug_route into index.js
-const debug_route = require('./src/routes/debug_route.js');
+// Define debug_routes
+const debug_router = require('./src/routes/debug_route');
 
 // Call db_middlware function.
-const database = require('./src/middleware/db.middleware');
+const database = require('./src/middleware/db_middleware');
+
+// Default response middleware
+const default_response = require('./src/middleware/default_response');
 
 // Require morgan
 const morgan = require('morgan');
@@ -214,46 +91,15 @@ const server = app.listen(port, () => {
 
 // WHEN DEBUG == TRUE.
 if (debug) {
-    // endpoint for /app/log/access that returns all records in "accesslog" table in "log.db"
-    app.get('/app/log/access', debug_route.all_records);
-
-    // endpoint for /app/error if there is an error.
-    app.get('/app/error', debug_route.debug_error);
-
+    app.use('/app', debug_router);
 }
 
-
-// Define check endpoint
-app.get('/app/', coin_route.status);
-
-// Define function for multiple coin flips
-app.post('/app/flip/coins', coin_route.multiple_coins);
-
-
-// Define response for coinFlip.
-app.get('/app/flip/', coin_route.coin_flip);
-
-
-// Define response for coinFlips with given number.
-app.get('/app/flips/:number', coin_route.number_coin_flip);
-
-
-// Define response for call.
-app.post('/app/flip/call/', coin_route.flip_call);
-
-// Define response for heads call.
-app.get('/app/flip/call/heads', coin_route.head_call);
-
-
-// Define response for tails call.
-app.get('/app/flip/call/tails', coin_route.tail_call);
-
-// Define response for Guessing heads or tails.
-app.get('/app/flip/call/:guess(heads|tails)/', coin_route.guess_flip);
+// Pass in all the coin_routes into index.js
+app.use('/app', coin_router);
 
 
 // Default response for any other request.
-app.use(default_route.default_route);
+app.use(default_response.default_response);
 
 // STDOUT sever has stopped.
 process.on('SIGTERM', () => {

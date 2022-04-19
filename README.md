@@ -53,7 +53,6 @@ node server.js [options]
 ## Endpoints
 
 ### /app/ (GET)
-   * Retrieve data from the server.
    * If the connection to API is open, the message below will appear in terminal.  
    * If not, it will indicate curl has failed to connect to `port 5000`.  
 
@@ -83,7 +82,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/ (GET)
-   * Retrieve data from the server.
+   **Retrieve data from the server.**
    * One coin flip that returns a randomized selection of either heads or tails.
 
 #### Request cURL
@@ -112,9 +111,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flips/:number/ (GET)
-   * Retrieve data from the server.
+   **Retrieve data from the server.**
    * Given a number of flips, it returns the total number of flips 
    entered with either heads or tails at random.
+   Returns :
    * `raw` : raw result listing of all flips.
    * `summary` : JSON displaying the total number of tails and heads for the given parameter.
 
@@ -144,7 +144,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coin/ (GET)
-   * Retrieve data from the server.
+   **Retrieve data from the server.**
    * Same API call as `/app/flip/ (GET)`.
    * Flip one coin and return either heads or tails at random.
 
@@ -205,7 +205,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/call/ (POST)
-   * Sends data/information to the server through curl with a guess.
+   **Sends data/information to the server through curl with a guess.**
    * Returns back :
       1. "call" (guess) : (heads | tails)
       2. "flip" (actual flip) : (heads | tails)
@@ -237,7 +237,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coins/ (POST)
-   * Sends data/information to the server.
+   **Sends data/information to the server.**
    * Request the number of flips and obtain:
       * `raw` : raw result listing of all flips.
       * `summary` : JSON displaying the total number of tails and heads for the given parameter.
@@ -269,9 +269,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/log/access/ (GET)
-** only works when --debug = true (Running `npm test`) **
-   * Retrieve data from the server.
-   * Obtains all records of access log.
+**only works when --debug = true (Running `npm test`)**
+   **Retrieve data from the server.**
+
+* Obtains all records of access log.
 
 #### Request cURL
 
@@ -299,9 +300,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/error/ (GET)
-** only works when --debug = true (Running `npm test`) **
-   * Retrieve data from the server.
-   * Returns an error message (_Error test successful_)
+**only works when --debug = true (Running `npm test`)**
+   **Retrieve data from the server.**
+
+* Returns an error message (_Error test successful_)
 
 #### Request cURL
 
@@ -339,9 +341,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/log/error/ (GET)
-** Will only work when --debug = true (Running `npm test`) since it's a log **
-   * Retrieve data from the server.
-   * Returns back log errors from the file.
+**Will only work when --debug = true (Running `npm test`) since it's a log**
+   **Retrieve data from the server.**
+
+* Returns back log errors from the file.
 
 _Not yet implemented_
 
@@ -371,7 +374,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/user/login/ (POST)
-* Sends data/information to the server.
+**Sends data/information to the server.**
    * Allows the specified user to login
    * It must provide login and password.
    * Returns username and login success or fail.
@@ -404,7 +407,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/user/new/ (POST)
-* Sends data/information to the server.
+**Sends data/information to the server.**
    * Allows new user to be added to the database.
    * Returns the new user's username and login success or fail.
 
@@ -436,7 +439,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/user/update/ (PATCH)
-* PATCH sends an object containing partial data and rules for applying this data to an existing resource identified by its URI
+**PATCH sends an object containing partial data and rules for applying this data to an existing resource identified by its URI**
 
 * Modify an existing data that is already in the server.
    * Allows registered users to update their information.
@@ -470,7 +473,8 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/user/delete/ (DELETE)
-* DELETE asks the server to delete the resource specified in the Request-URI
+**DELETE asks the server to delete the resource specified in the Request-URI**
+
 * Deletes a user from the server.
 * Need to be careful when doing this as it cannot be done by a mistake.
 * Returns successful deletion.

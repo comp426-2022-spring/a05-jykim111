@@ -53,6 +53,8 @@ node server.js [options]
 ## Endpoints
 
 ### /app/ (GET)
+   * If the connection to API is open, the message below will appear in terminal.  
+   * If not, it will indicate curl has failed to connect to `port 5000`.  
 
 #### Request cURL
 
@@ -61,8 +63,6 @@ curl http://localhost:5000/app/
 ```
 
 #### Response body
-   * If the server is open, the message below will appear in terminal.  
-   * If not, it will indicate curl has failed to connect to `port 5000`.  
 
 ```
 {"message":"Your API works! (200)"}

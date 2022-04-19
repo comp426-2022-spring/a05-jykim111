@@ -69,8 +69,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-// Use morgan for logging to files
-// ONLY IF --log = true
+// Use morgan for logging to files (ONLY IF --log = true)
 if (log == true) {
     // Create a write stream to append (flags: 'a') to a file
     const access_log = fs.createWriteStream('access.log', { flags: 'a' });
@@ -78,6 +77,7 @@ if (log == true) {
     // Set up the access logging middleware
     app.use(morgan('combined', { stream: access_log }));
 }
+
 
 // Calling middleware function that inserts a new record in a database.
 app.use(database.log_middlware);
@@ -94,12 +94,14 @@ if (debug) {
     app.use('/app', debug_router);
 }
 
+
 // Pass in all the coin_routes into index.js
 app.use('/app', coin_router);
 
 
 // Default response for any other request.
 app.use(default_response.default_response);
+
 
 // STDOUT sever has stopped.
 process.on('SIGTERM', () => {

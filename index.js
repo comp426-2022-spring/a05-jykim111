@@ -127,8 +127,8 @@ const express = require('express')
 // Define express using variable "app"
 const app = express();
 
-// Require database SCRIPT file
-const database = require('./src/services/database.js');
+// Call db_middlware function.
+const database = require('./src/middleware/db.middleware');
 
 // Require morgan
 const morgan = require('morgan');
@@ -183,7 +183,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-
 // Use morgan for logging to files
 // ONLY IF --log = true
 if (log == true) {
@@ -194,34 +193,8 @@ if (log == true) {
     app.use(morgan('combined', { stream: access_log }));
 }
 
-
-// Middlware function that inserts a new record in a database.
-app.use((req, res, next) => {
-    // data objects for database.
-    let logdata = {
-        remoteaddr: req.ip,
-        remoteuser: req.user,
-        time: Date.now(),
-        method: req.method,
-        url: req.url,
-        protocol: req.protocol,
-        httpversion: req.httpVersion,
-        status: res.statusCode,
-        referer: req.headers[' referer '],
-        useragent: req.headers[' user-agent ']
-    };
-
-    // CREATE new records into a database
-    const statement = database.prepare('INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-
-    // Executes the prepared statement. When execution completes, it returns info object.
-    const info = statement.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method,
-        logdata.url, logdata.protocol, logdata.httpversion, logdata.status,
-        logdata.referer, logdata.useragent);
-
-    // next() to avoid hang.
-    next();
-})
+// Calling middleware function that inserts a new record in a database.
+app.use(database.log_middlware);
 
 
 // Start an app server

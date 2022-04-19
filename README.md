@@ -53,6 +53,7 @@ node server.js [options]
 ## Endpoints
 
 ### /app/ (GET)
+   * Retrieve data from the server.
    * If the connection to API is open, the message below will appear in terminal.  
    * If not, it will indicate curl has failed to connect to `port 5000`.  
 
@@ -82,6 +83,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/ (GET)
+   * Retrieve data from the server.
    * One coin flip that returns a randomized selection of either heads or tails.
 
 #### Request cURL
@@ -110,6 +112,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flips/:number/ (GET)
+   * Retrieve data from the server.
    * Given a number of flips, it returns the total number of flips 
    entered with either heads or tails at random.
    * `raw` : raw result listing of all flips.
@@ -141,6 +144,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coin/ (GET)
+   * Retrieve data from the server.
    * Same API call as `/app/flip/ (GET)`.
    * Flip one coin and return either heads or tails at random.
 
@@ -170,7 +174,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/call/:guess/ (GET)
-   * Performs flip match with the given guess and attain:
+   * Request data from the server with a given guess and obtain:
       1. "call" (guess) : (heads | tails)
       2. "flip" (actual flip) : (heads | tails)
       3. "result" (match) : (win | lose)
@@ -201,6 +205,11 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/call/ (POST)
+   * Sends data/information to the server through curl with a guess.
+   * Returns back :
+      1. "call" (guess) : (heads | tails)
+      2. "flip" (actual flip) : (heads | tails)
+      3. "result" (match) : (win | lose)
 
 #### Request cURL
 
@@ -228,6 +237,11 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coins/ (POST)
+   * Sends data/information to the server.
+   * Request the number of flips and obtain:
+      * `raw` : raw result listing of all flips.
+      * `summary` : JSON displaying the total number of tails and heads for the given parameter.
+
 
 #### Request cURL
 
@@ -255,151 +269,235 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/log/access/ (GET)
+** only works when --debug = true (Running `npm test`) **
+   * Retrieve data from the server.
+   * Obtains all records of access log.
 
 #### Request cURL
 
 ```
-curl http:
+curl http://localhost:5000/app/log/access
 ```
 
 #### Response body
 
 ```
-
+[{"id":1,"remoteaddr":"::ffff:127.0.0.1","remoteuser":null,"time":"1650360968407.0","method":"GET","url":"/app/flip","protocol":"http","httpversion":"1.1","status":"200.0","referer":null,"useragent":null},{"id":2,"remoteaddr":"::ffff:127.0.0.1","remoteuser":null,"time":"1650361070839.0","method":"GET","url":"/app/flip","protocol":"http","httpversion":"1.1","status":"200.0","referer":null,"useragent":null}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 3137
+ETag: W/"c41-sQcnEuXqH9OR8gp/xzT1G4gup7g"
+Date: Tue, 19 Apr 2022 13:21:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
-### /app/log/access/ (GET)
+### /app/error/ (GET)
+** only works when --debug = true (Running `npm test`) **
+   * Retrieve data from the server.
+   * Returns an error message (_Error test successful_)
 
 #### Request cURL
 
 ```
-
+curl http://localhost:5000/app/error/
 ```
 
 #### Response body
 
 ```
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Error: Error test successful.<br> &nbsp; &nbsp;at /Users/jameskim/Documents/unc/comp426/a05-jykim111/src/routes/debug_route.js:27:11<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/layer.js:95:5)<br> &nbsp; &nbsp;at next (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/route.js:137:13)<br> &nbsp; &nbsp;at Route.dispatch (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/route.js:112:3)<br> &nbsp; &nbsp;at Layer.handle [as handle_request] (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/layer.js:95:5)<br> &nbsp; &nbsp;at /Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/index.js:281:22<br> &nbsp; &nbsp;at Function.process_params (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/index.js:341:12)<br> &nbsp; &nbsp;at next (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/index.js:275:10)<br> &nbsp; &nbsp;at Function.handle (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/index.js:174:3)<br> &nbsp; &nbsp;at router (/Users/jameskim/Documents/unc/comp426/a05-jykim111/node_modules/express/lib/router/index.js:47:12)</pre>
+</body>
+</html>
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 500 Internal Server Error
+X-Powered-By: Express
+Content-Security-Policy: default-src 'none'
+X-Content-Type-Options: nosniff
+Content-Type: text/html; charset=utf-8
+Content-Length: 1477
+Date: Tue, 19 Apr 2022 13:28:16 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/log/error/ (GET)
+** Will only work when --debug = true (Running `npm test`) since it's a log **
+   * Retrieve data from the server.
+   * Returns back log errors from the file.
 
 _Not yet implemented_
 
 #### Request cURL
 
 ```
-
+curl http://localhost:5000/app/log/error/
 ```
 
 #### Response body
 
 ```
-
+[{"id":1,"remoteaddr":"::null","remoteuser":null,"time":"1650360968407.0","method":"GET","url":"/endpoint/does/not/exist","protocol":"http","httpversion":"1.1","status":"404.0","referer":null,"useragent":null}]
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 404 Not Found
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 13
+ETag: W/"d-9cDc1x9S0CgmdX/8mukTB8yQ/hY"
+Date: Tue, 19 Apr 2022 13:35:10 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/user/login/ (POST)
+* Sends data/information to the server.
+   * Allows the specified user to login
+   * It must provide login and password.
+   * Returns username and login success or fail.
 
 _Not yet implemented_
 
 #### Request cURL
 
 ```
-
+curl -X POST -H 'Content-Type: application/json' -d '{"username":"my_username", "password":"my_password"}' http://localhost:5000/app/user/login/
 ```
 
 #### Response body
 
 ```
-
+{"username":"my_username", "success":"true"}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 3137
+ETag: W/"c41-sQcnEuXqH9OR8gp/xzT1G4gup7g"
+Date: Tue, 19 Apr 2022 13:21:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/user/new/ (POST)
+* Sends data/information to the server.
+   * Allows new user to be added to the database.
+   * Returns the new user's username and login success or fail.
 
 _Not yet implemented_
 
 #### Request cURL
 
 ```
-
+curl -X POST -H 'Content-Type: application/json' -d '{"username":"new_user_login", "password":"new_user_password"}' http://localhost:5000/app/user/new/
 ```
 
 #### Response body
 
 ```
-
+{"username":"new_username", "success":"true"}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 3137
+ETag: W/"c41-sQcnEuXqH9OR8gp/xzT1G4gup7g"
+Date: Tue, 19 Apr 2022 13:21:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/user/update/ (PATCH)
+* PATCH sends an object containing partial data and rules for applying this data to an existing resource identified by its URI
+
+* Modify an existing data that is already in the server.
+   * Allows registered users to update their information.
+   * Returns back the updated information and success or fail.
 
 _Not yet implemented_
 
 #### Request cURL
 
 ```
-
+curl -X PATCH -H 'Content-Type: application/json' -d {username":"update_username", "password":"update_password"}' http://localhost:5000/app/user/update/
 ```
 
 #### Response body
 
 ```
-
+{"username":"updated_username", "password":"updated", "updates":"successful"}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 3137
+ETag: W/"c41-sQcnEuXqH9OR8gp/xzT1G4gup7g"
+Date: Tue, 19 Apr 2022 13:21:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/user/delete/ (DELETE)
+* DELETE asks the server to delete the resource specified in the Request-URI
+* Deletes a user from the server.
+* Need to be careful when doing this as it cannot be done by a mistake.
+* Returns successful deletion.
 
 _Not yet implemented_
 
 #### Request cURL
 
 ```
-
+curl -X DELETE -H 'Content-Type: application/json' -d {"username":"my_username", "password":"my_password", "password":"verify_password"}' http://localhost:5000/app/user/delete/
 ```
 
 #### Response body
 
 ```
-
+{"username":"my_username", "deletion":"successful"}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 3137
+ETag: W/"c41-sQcnEuXqH9OR8gp/xzT1G4gup7g"
+Date: Tue, 19 Apr 2022 13:21:52 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```

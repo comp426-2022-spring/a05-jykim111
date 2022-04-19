@@ -61,6 +61,8 @@ curl http://localhost:5000/app/
 ```
 
 #### Response body
+If the server is open, the message below will appear in terminal.
+If not, it will indicate curl has failed to connect to `port 5000`
 
 ```
 {"message":"Your API works! (200)"}
@@ -246,7 +248,7 @@ Keep-Alive: timeout=5
 #### Request cURL
 
 ```
-
+curl http:
 ```
 
 #### Response body

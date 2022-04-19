@@ -82,6 +82,7 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/ (GET)
+   * One coin flip that returns a randomized selection of either heads or tails.
 
 #### Request cURL
 
@@ -109,6 +110,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flips/:number/ (GET)
+   * Given a number of flips, it returns the total number of flips 
+   entered with either heads or tails at random.
+   * `raw` : raw result listing of all flips.
+   * `summary` : JSON displaying the total number of tails and heads for the given parameter.
 
 #### Request cURL
 
@@ -136,6 +141,8 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coin/ (GET)
+   * Same API call as `/app/flip/ (GET)`.
+   * Flip one coin and return either heads or tails at random.
 
 #### Request cURL
 
@@ -163,6 +170,10 @@ Keep-Alive: timeout=5
 ```
 
 ### /app/flip/call/:guess/ (GET)
+   * Performs flip match with the given guess and attain:
+      1. "call" (guess) : (heads | tails)
+      2. "flip" (actual flip) : (heads | tails)
+      3. "result" (match) : (win | lose)
 
 #### Request cURL
 

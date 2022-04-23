@@ -112,15 +112,22 @@
     <button id="tailsButton">TAILS</button>
     <br>
     <br>
-    <h2>Your Guess : </h2>
-    <p id="userGuess"></p>
-    <img src="./assets/img/question.png" id="userGuessImg" />
+    <div class="flex-container">
+      <div class="guess">
+        <h2>Your Guess : </h2>
+        <p id="userGuess"></p>
+        <img src="./assets/img/question.png" id="userGuessImg" />
+      </div>
+      <br>
+      <div class="actual">
+        <h2>Actual : </h2>
+        <p id="actualGuess"></p>
+        <img id="actualGuessImg" />
+      </div>
+    </div>
     <br>
-    <h2>Actual : </h2>
-    <p id="actualGuess"></p>
-    <img id="actualGuessImg" />
     <br>
-    <h2>Result : </h2>
+    <h1>Result : </h1>
     <img id="guessResultImg" />
 
   </div>

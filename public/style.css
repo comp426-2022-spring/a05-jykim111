@@ -29,6 +29,23 @@ img.bigcoin {
   font-weight: bold;
 }
 
-#userGuessImg {
+#userGuessImg,
+#actualGuessImg,
+#guessResultImg {
   width: 200px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.guess {
+  margin-right: 100px;
+}
+
+#userGuess,
+#actualGuess {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
 }

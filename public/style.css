@@ -28,3 +28,7 @@ img.bigcoin {
   font-size: 20px;
   font-weight: bold;
 }
+
+#userGuessImg {
+  width: 200px;
+}

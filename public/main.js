@@ -202,7 +202,14 @@ async function headsGuess(event) {
         document.getElementById('userGuess').innerHTML = guess.call;
         document.getElementById('userGuessImg').setAttribute("src", "./assets/img/" + guess.call + ".png");
 
+        document.getElementById('actualGuess').innerHTML = guess.flip;
+        document.getElementById('actualGuessImg').setAttribute("src", "./assets/img/" + guess.flip + ".png");
 
+        if (guess.call === guess.flip) {
+            document.getElementById('guessResultImg').setAttribute("src", "./assets/img/win.jpeg");
+        } else {
+            document.getElementById('guessResultImg').setAttribute("src", "./assets/img/lose.jpg");
+        }
     } catch (error) {
         console.log(error);
     }
@@ -229,3 +236,75 @@ async function sendGuessHeads({ url, formData }) {
 
     return response.json();
 }
+/***********************************************************/
+/* Guess Heads Done */
+/***********************************************************/
+
+
+/***********************************************************/
+/* FOR TAILS GUESS */
+/***********************************************************/
+
+// guess tails flip
+const tails = document.getElementById('tailsButton');
+
+// Add event listener for head button.
+tails.addEventListener("click", tailsGuess);
+
+// Create submit handler for tails button.
+async function tailsGuess(event) {
+    // Prevent the default behavior of the browser submitting the form.
+    event.preventDefault();
+
+    const endpoint = "app/flip/call";
+
+    // document.baseURI gives something that you can use to build on top of.
+    const url = document.baseURI + endpoint;
+
+    // This gets the element which the event handler was attached to.
+    const formData = { "guess": "tails" };
+
+    try {
+        const guess = await sendGuessTails({ url, formData });
+        console.log(guess);
+
+        document.getElementById('userGuess').innerHTML = guess.call;
+        document.getElementById('userGuessImg').setAttribute("src", "./assets/img/" + guess.call + ".png");
+
+        document.getElementById('actualGuess').innerHTML = guess.flip;
+        document.getElementById('actualGuessImg').setAttribute("src", "./assets/img/" + guess.flip + ".png");
+
+        if (guess.call === guess.flip) {
+            document.getElementById('guessResultImg').setAttribute("src", "./assets/img/win.jpeg");
+        } else {
+            document.getElementById('guessResultImg').setAttribute("src", "./assets/img/lose.jpg");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Create a data sender.
+async function sendGuessTails({ url, formData }) {
+    const formDataJSON = JSON.stringify(formData);
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: formDataJSON
+    };
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
+    return response.json();
+}
+/***********************************************************/
+/* Guess Tails Done */
+/***********************************************************/

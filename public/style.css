@@ -10,10 +10,21 @@ img.bigcoin {
   width: 50px;
 }
 
-img.smallcoin {
-  width: 50px;
+#smallcoin {
+  width: 200px;
 }
 
 #all_results {
   display: flex;
+}
+
+#all_results_text {
+  display: flex;
+}
+
+#all_results_text p {
+  margin-left: 75px;
+  margin-right: 84px;
+  font-size: 20px;
+  font-weight: bold;
 }

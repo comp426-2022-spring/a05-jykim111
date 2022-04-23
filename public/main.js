@@ -53,7 +53,7 @@ function singleCoinFlip() {
             // It is result.flip b/c "json()" returns key/value pair, and the key/value pair in
             // that endpoint is "flip": "heads", so the value in flip will be displayed (head/tails)
             document.getElementById("singleFlipResult").innerHTML = result.flip;
-            document.getElementById("quarter").setAttribute("src", "./assets/img/" + result.flip + ".png");
+            document.getElementById("smallcoin").setAttribute("src", "./assets/img/" + result.flip + ".png");
             //coin.disabled = true;
 
         })
@@ -100,13 +100,23 @@ async function flipCoins(event) {
         // For table view of all results
         let document_fragment = document.createDocumentFragment();
 
+        // In order to reset after a multiple flip.
+        while (all_results.firstChild) {
+            all_results.removeChild(all_results.firstChild);
+            all_results_text.removeChild(all_results_text.firstChild);
+        }
+
         for (let i = 0; i < flips.raw.length; i++) {
             let img = document.createElement('img');
             img.src = "./assets/img/" + flips.raw[i] + ".png";
+            img.id = "smallcoin";
             document_fragment.appendChild(img);
-
+            document.getElementById('all_results_text').innerHTML += `<p>${flips.raw[i]}</p>`
         }
+
         all_results.appendChild(document_fragment);
+
+
 
     } catch (error) {
         console.log(error);

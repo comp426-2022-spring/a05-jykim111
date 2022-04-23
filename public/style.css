@@ -13,3 +13,7 @@ img.bigcoin {
 img.smallcoin {
   width: 50px;
 }
+
+#all_results {
+  display: flex;
+}

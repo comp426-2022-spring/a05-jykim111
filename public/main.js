@@ -83,6 +83,9 @@ async function flipCoins(event) {
     // This gets the element which the event handler was attached to.
     const formEvent = event.currentTarget;
 
+    // const for all_results for image table view.
+    const all_results = document.getElementById('all_results');
+
     try {
         // This takes all the fields in the form and makes their values
         // available throught a 'FormData' instance.
@@ -91,8 +94,20 @@ async function flipCoins(event) {
         const flips = await sendFlips({ url, formData });
 
         console.log(flips);
-        document.getElementById("heads").innerHTML = "Heads: " + flips.summary.heads;
-        document.getElementById("tails").innerHTML = "Tails: " + flips.summary.tails;
+        document.getElementById("heads").innerHTML = flips.summary.heads;
+        document.getElementById("tails").innerHTML = flips.summary.tails;
+
+        // For table view of all results
+        let document_fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < flips.raw.length; i++) {
+            let img = document.createElement('img');
+            img.src = "./assets/img/" + flips.raw[i] + ".png";
+            document_fragment.appendChild(img);
+
+        }
+        all_results.appendChild(document_fragment);
+
     } catch (error) {
         console.log(error);
     }

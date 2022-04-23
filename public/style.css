@@ -57,9 +57,35 @@ img.bigcoin {
   padding: 15px 30px;
 }
 
-button:active {
-  border-color: dodgerblue;
-  border: 20px;
+.nav:active {
+  border: 5px solid dodgerblue;
   background-color: white;
   color: black;
+}
+
+#coin {
+  background-color: rgba(253, 182, 16, 0.958);
+  border: 5px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  color: black;
+  padding: 15px 30px;
+}
+
+#coin:active,
+#headsButton:active,
+#tailsButton:active,
+input[type=submit]:active {
+  border: 2px solid rgba(253, 182, 16, 0.958);
+  background-color: white;
+}
+
+
+input[type=submit],
+#headsButton,
+#tailsButton {
+  background-color: rgba(253, 182, 16, 0.958);
+  border: 5px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  color: black;
+  padding: 5px 20px;
 }

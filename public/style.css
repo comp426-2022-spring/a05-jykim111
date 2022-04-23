@@ -3,7 +3,7 @@ div.hidden {
 }
 
 div.active {
-  border: 5px solid red;
+  border: 5px solid skyblue;
 }
 
 img.bigcoin {
@@ -48,4 +48,18 @@ img.bigcoin {
   font-size: 20px;
   text-align: center;
   font-weight: bold;
+}
+
+.nav {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+}
+
+button:active {
+  border-color: dodgerblue;
+  border: 20px;
+  background-color: white;
+  color: black;
 }

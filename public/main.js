@@ -88,7 +88,7 @@ async function flipCoins(event) {
 
     try {
         // This takes all the fields in the form and makes their values
-        // available throught a 'FormData' instance.
+        // available through a 'FormData' instance.
         const formData = new FormData(formEvent);
 
         const flips = await sendFlips({ url, formData });
@@ -171,3 +171,61 @@ async function sendFlips({ url, formData }) {
 }
 
 // Guess a flip by clicking either heads or tails button
+
+/*********************************************************/
+/* FOR HEADS BUTTON */
+/*********************************************************/
+
+// guess head flip
+const heads = document.getElementById('headsButton');
+
+// Add event listener for head button.
+heads.addEventListener("click", headsGuess);
+
+// Create submit handler for heads button.
+async function headsGuess(event) {
+    // Prevent the default behavior of the browser submitting the form.
+    event.preventDefault();
+
+    const endpoint = "app/flip/call";
+
+    // document.baseURI gives something that you can use to build on top of.
+    const url = document.baseURI + endpoint;
+
+    // This gets the element which the event handler was attached to.
+    const formData = { "guess": "heads" };
+
+    try {
+        const guess = await sendGuessHeads({ url, formData });
+        console.log(guess);
+
+        document.getElementById('userGuess').innerHTML = guess.call;
+        document.getElementById('userGuessImg').setAttribute("src", "./assets/img/" + guess.call + ".png");
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Create a data sender.
+async function sendGuessHeads({ url, formData }) {
+    const formDataJSON = JSON.stringify(formData);
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: formDataJSON
+    };
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
+    return response.json();
+}

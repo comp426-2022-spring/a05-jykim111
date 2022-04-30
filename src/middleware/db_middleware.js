@@ -1,4 +1,4 @@
-// Middleware function definitions go here
+// Database Middleware
 
 // Require database SCRIPT file
 const database = require('../services/database.js');

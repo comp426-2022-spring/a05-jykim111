@@ -1,4 +1,4 @@
-// Route (endpoint) definitions go in this directory
+// coin Route (endpoint)
 
 // Define express
 const express = require('express');

@@ -1,3 +1,5 @@
+// Default response middleware
+
 // Default response for any other request.
 function default_response(req, res) {
     res.status(404).send('404 NOT FOUND');

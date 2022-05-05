@@ -3,13 +3,93 @@ div.hidden {
 }
 
 div.active {
-  border: 5px solid red;
+  border: 5px solid skyblue;
 }
 
 img.bigcoin {
   width: 50px;
 }
 
-img.smallcoin {
-  width: 50px;
+#smallcoin {
+  width: 200px;
+}
+
+/* Displaying multiple coin flip results as column */
+#all_results {
+  display: flex;
+}
+
+#all_results_text {
+  display: flex;
+}
+
+#all_results_text p {
+  margin-left: 75px;
+  margin-right: 84px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Width of all images */
+#userGuessImg,
+#actualGuessImg,
+#guessResultImg {
+  width: 200px;
+}
+
+/* Displaying guess flips as columns not in rows */
+.flex-container {
+  display: flex;
+}
+
+.guess {
+  margin-right: 100px;
+}
+
+#userGuess,
+#actualGuess {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Styles for all buttons & nav */
+.nav {
+  background-color: dodgerblue;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+}
+
+.nav:active {
+  border: 5px solid dodgerblue;
+  background-color: white;
+  color: black;
+}
+
+#coin {
+  background-color: rgba(253, 182, 16, 0.958);
+  border: 5px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  color: black;
+  padding: 15px 30px;
+}
+
+#coin:active,
+#headsButton:active,
+#tailsButton:active,
+input[type=submit]:active {
+  border: 2px solid rgba(253, 182, 16, 0.958);
+  background-color: white;
+}
+
+/* Style for heads/tails buttons */
+input[type=submit],
+#headsButton,
+#tailsButton {
+  background-color: rgba(253, 182, 16, 0.958);
+  border: 5px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  color: black;
+  padding: 5px 20px;
 }
